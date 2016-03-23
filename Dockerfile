@@ -12,9 +12,11 @@ ENV TASKDPKI /usr/share/taskd/pki
 RUN taskd init
 COPY taskd-config ${TASKDCONF}/config
 
+# Cerfiticates initialisation
 WORKDIR ${TASKDPKI}
 RUN ./generate && \
-    cp *.pem ${TASKDDATA}
+    cp *.pem ${TASKDDATA} && \
+    taskd add org Default
 
 VOLUME ${TASKDDATA}
 EXPOSE 53589
