@@ -1,0 +1,4 @@
+taskd:
+    image: taeradan/taskd
+    ports:
+        - "53589:53589"
