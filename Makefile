@@ -1,5 +1,6 @@
 IMAGE=taeradan/taskd
 CONTAINER=taskd
+#CONTAINER=dockertaskd_taskd_1
 USERS_DIR=users
 
 run:
@@ -19,8 +20,8 @@ rm: stop
 	docker rm $(CONTAINER)
 
 add_user:
-	docker exec $(CONTAINER) taskd add user 'Default' '$(NEW_USER)'
-	docker exec $(CONTAINER) ./generate.client $(NEW_USER)
+	docker-compose exec $(CONTAINER) taskd add user 'Default' '$(NEW_USER)'
+	docker-compose exec $(CONTAINER) ./generate.client $(NEW_USER)
 	mkdir -p $(USERS_DIR)/$(NEW_USER)
 	docker cp $(CONTAINER):/usr/share/taskd/pki/ca.cert.pem $(USERS_DIR)/$(NEW_USER)
 	docker cp $(CONTAINER):/usr/share/taskd/pki/$(NEW_USER).cert.pem $(USERS_DIR)/$(NEW_USER)
